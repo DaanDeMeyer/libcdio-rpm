@@ -1,8 +1,7 @@
 Name:           libcdio
 Version:        0.70
 Release:        1
-Epoch:          0
-Summary:        A CD-ROM input and control library
+Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
 License:        GPL
@@ -25,7 +24,7 @@ devices.
 %package        devel
 Summary:        Header files and static libraries for %{name}
 Group:          Development/Libraries
-Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 Requires:       pkgconfig
 
 %description    devel
