@@ -1,5 +1,5 @@
 Name:           libcdio
-Version:        0.69
+Version:        0.70
 Release:        0.fdr.1.2
 Epoch:          0
 Summary:        A CD-ROM input and control library
@@ -7,7 +7,7 @@ Summary:        A CD-ROM input and control library
 Group:          Applications/Multimedia
 License:        GPL
 URL:            http://www.gnu.org/software/libcdio/
-Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.69.tar.gz
+Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.70.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  libcddb-devel
@@ -49,8 +49,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
-# Don't include broken iso-read.
-rm $RPM_BUILD_ROOT%{_bindir}/iso-read
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -87,6 +85,9 @@ fi
 
 
 %changelog
+* Sun Sep  5 2004 Marius L. Jøhndal <mariuslj at ifi.uio.no> - 0:0.70-0.fdr.1
+- Updated to 0.70.
+
 * Sat Jul 17 2004 Marius L. Jøhndal <mariuslj at ifi.uio.no> - 0:0.69-0.fdr.1
 - Updated to 0.69.
 - Removed broken iso-read.
