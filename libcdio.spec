@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.69
-Release:        0.fdr.1.1
+Release:        0.fdr.1.2
 Epoch:          0
 Summary:        A CD-ROM input and control library
 
