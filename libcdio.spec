@@ -1,15 +1,16 @@
 Name:           libcdio
 Version:        0.70
-Release:        1
+Release:        2
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
 License:        GPL
 URL:            http://www.gnu.org/software/libcdio/
 Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.70.tar.gz
+Patch0:         %{name}-gcc4.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  libcddb-devel
+BuildRequires:  libcddb-devel >= 0.9.4
 BuildRequires:  pkgconfig
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -33,10 +34,11 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 
 %build
-%configure --disable-vcd-info
+%configure --disable-vcd-info --disable-dependency-tracking
 # Parallel build fails
 make
 
@@ -84,6 +86,10 @@ fi
 
 
 %changelog
+* Fri Mar 18 2005 Ville Skyttä <ville.skytta at iki.fi> - 0.70-2
+- Fix FC4 build (#151468).
+- Build with dependency tracking disabled.
+
 * Sun Sep  5 2004 Marius L. Jøhndal <mariuslj at ifi.uio.no> - 0:0.70-0.fdr.1
 - Updated to 0.70.
 
