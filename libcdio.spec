@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.73
-Release:        1
+Release:        2
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -11,8 +11,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  libcddb-devel >= 0.9.4
 BuildRequires:  pkgconfig
+BuildRequires:  ncurses-devel
 Requires(post): /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -33,6 +33,8 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
+f=src/cd-paranoia/doc/jp/cd-paranoia.1.in
+iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
 
 %build
@@ -47,8 +49,11 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
-# I don't know what to do with jp manpages
-rm -rf $RPM_BUILD_ROOT%{_mandir}/jp
+mv $RPM_BUILD_ROOT%{_mandir}/{jp,ja}
+
+
+%check || :
+make check
 
 
 %clean
@@ -65,8 +70,7 @@ if [ $1 = 0 ]; then
     %{_infodir}/dir 2>/dev/null || :
 fi
 
-%postun
-/sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 
 %files
@@ -76,6 +80,7 @@ fi
 %{_libdir}/*.so.*
 %{_infodir}/*
 %{_mandir}/man1/*
+%lang(ja) %{_mandir}/ja/man1/*
 
 
 %files devel
@@ -87,6 +92,11 @@ fi
 
 
 %changelog
+* Sun Apr 24 2005 Ville Skyttä <ville.skytta at iki.fi> - 0.73-2
+- BuildRequire ncurses-devel (for cdda-player and cd-paranoia).
+- Run test suite during build.
+- Install Japanese man pages.
+
 * Sun Apr 24 2005 Adrian Reber <adrian@lisas.de> - 0.73-1
 - Updated to 0.73.
 
