@@ -1,13 +1,12 @@
 Name:           libcdio
-Version:        0.70
-Release:        2
+Version:        0.73
+Release:        1
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
 License:        GPL
 URL:            http://www.gnu.org/software/libcdio/
-Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.70.tar.gz
-Patch0:         %{name}-gcc4.patch
+Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.73.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  libcddb-devel >= 0.9.4
@@ -34,13 +33,11 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 
 
 %build
 %configure --disable-vcd-info --disable-dependency-tracking
-# Parallel build fails
-make
+make %{_smp_mflags}
 
 
 %install
@@ -49,6 +46,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
+
+# I don't know what to do with jp manpages
+rm -rf $RPM_BUILD_ROOT%{_mandir}/jp
 
 
 %clean
@@ -75,6 +75,7 @@ fi
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_infodir}/*
+%{_mandir}/man1/*
 
 
 %files devel
@@ -86,6 +87,9 @@ fi
 
 
 %changelog
+* Sun Apr 24 2005 Adrian Reber <adrian@lisas.de> - 0.73-1
+- Updated to 0.73.
+
 * Fri Mar 18 2005 Ville Skyttä <ville.skytta at iki.fi> - 0.70-2
 - Fix FC4 build (#151468).
 - Build with dependency tracking disabled.
