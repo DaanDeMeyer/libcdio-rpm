@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.74
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -93,7 +93,7 @@ fi
 
 
 %changelog
-* Fri Jun 03 2005 Adrian Reber <adrian@lisas.de> - 0.74-1
+* Fri Jun 03 2005 Adrian Reber <adrian@lisas.de> - 0.74-2
 - Updated to 0.74.
 
 * Sun Apr 24 2005 Ville Skyttä <ville.skytta at iki.fi> - 0.73-2
