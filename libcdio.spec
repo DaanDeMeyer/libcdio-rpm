@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.75
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -10,7 +10,7 @@ Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.75.tar.gz
 Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.75.tar.gz.sig
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  libcddb-devel >= 0.9.4
+#BuildRequires:  libcddb-devel >= 0.9.4
 BuildRequires:  pkgconfig
 BuildRequires:  ncurses-devel
 Requires(post): /sbin/ldconfig
@@ -39,7 +39,11 @@ iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
 
 %build
-%configure --disable-vcd-info --disable-dependency-tracking
+%configure \
+	--disable-vcd-info \
+	--disable-dependency-tracking \
+	--disable-cddb \
+	--disable-rpath
 make %{_smp_mflags}
 
 
@@ -54,6 +58,7 @@ mv $RPM_BUILD_ROOT%{_mandir}/{jp,ja}
 
 
 %check || :
+%{__sed} -i -e  "s/am__EXEEXT_1 =.*$/am__EXEEXT_1 =/g" test/Makefile
 make check
 
 
@@ -67,8 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 if [ $1 = 0 ]; then
-  /sbin/install-info --delete %{_infodir}/%{name}.info \
-    %{_infodir}/dir 2>/dev/null || :
+	/sbin/install-info --delete %{_infodir}/%{name}.info \
+		%{_infodir}/dir 2>/dev/null || :
 fi
 
 %postun -p /sbin/ldconfig
@@ -93,6 +98,12 @@ fi
 
 
 %changelog
+* Mon Aug 01 2005 Adrian Reber <adrian@lisas.de> - 0.75-4
+- disable test accessing local CDROM drive (#164266)
+
+* Wed Jul 27 2005 Adrian Reber <adrian@lisas.de> - 0.75-3
+- Rebuilt without libcddb dependency (#164270)
+
 * Tue Jul 26 2005 Adrian Reber <adrian@lisas.de> - 0.75-2
 - Rebuilt
 
