@@ -44,7 +44,7 @@ iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 	--disable-dependency-tracking \
 	--disable-cddb \
 	--disable-rpath
-make %{_smp_mflags}
+make %{?_smp_mflags}
 
 
 %install
