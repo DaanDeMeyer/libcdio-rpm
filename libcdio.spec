@@ -1,17 +1,17 @@
 Name:           libcdio
-Version:        0.75
-Release:        4%{?dist}
+Version:        0.76
+Release:        1%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
 License:        GPL
 URL:            http://www.gnu.org/software/libcdio/
-Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.75.tar.gz
-Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.75.tar.gz.sig
+Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.76.tar.gz
+Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.76.tar.gz.sig
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 #BuildRequires:  libcddb-devel >= 0.9.4
-BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig doxygen
 BuildRequires:  ncurses-devel
 Requires(post): /sbin/ldconfig
 Requires(post): /sbin/install-info
@@ -45,6 +45,8 @@ iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 	--disable-cddb \
 	--disable-rpath
 make %{?_smp_mflags}
+cd doc/doxygen
+./run_doxygen
 
 
 %install
@@ -56,8 +58,14 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 mv $RPM_BUILD_ROOT%{_mandir}/{jp,ja}
 
+rm -rf examples
+mkdir -p examples/C++
+cp -a example/{*.c,README} examples
+cp -a example/C++/{*.cpp,README} examples/C++
+
 
 %check || :
+# disable test using local CDROM
 %{__sed} -i -e  "s/am__EXEEXT_1 =.*$/am__EXEEXT_1 =/g" test/Makefile
 make check
 
@@ -91,6 +99,7 @@ fi
 
 %files devel
 %defattr(-,root,root,-)
+%doc doc/doxygen/html examples
 %{_includedir}/cdio
 %{_libdir}/*.a
 %{_libdir}/*.so
@@ -98,6 +107,11 @@ fi
 
 
 %changelog
+* Mon Sep 26 2005 Adrian Reber <adrian@lisas.de> - 0.76-1
+- Updated to 0.76.
+- Included doxygen generated documentation into -devel
+- Included examples into -devel
+
 * Mon Aug 01 2005 Adrian Reber <adrian@lisas.de> - 0.75-4
 - disable test accessing local CDROM drive (#164266)
 
