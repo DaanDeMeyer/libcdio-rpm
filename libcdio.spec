@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.76
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -107,6 +107,9 @@ fi
 
 
 %changelog
+* Mon Sep 26 2005 Adrian Reber <adrian@lisas.de> - 0.76-2
+- Rebuilt
+
 * Mon Sep 26 2005 Adrian Reber <adrian@lisas.de> - 0.76-1
 - Updated to 0.76.
 - Included doxygen generated documentation into -devel
