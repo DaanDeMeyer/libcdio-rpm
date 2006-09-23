@@ -1,13 +1,13 @@
 Name:           libcdio
-Version:        0.76
-Release:        3%{?dist}
+Version:        0.77
+Release:        1%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
 License:        GPL
 URL:            http://www.gnu.org/software/libcdio/
-Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.76.tar.gz
-Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.76.tar.gz.sig
+Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.77.tar.gz
+Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.77.tar.gz.sig
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 #BuildRequires:  libcddb-devel >= 0.9.4
@@ -101,12 +101,16 @@ fi
 %defattr(-,root,root,-)
 %doc doc/doxygen/html examples
 %{_includedir}/cdio
+%{_includedir}/cdio++
 %{_libdir}/*.a
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
 
 %changelog
+* Fri Sep 22 2006 Adrian Reber <adrian@lisas.de> - 0.77-1
+- Updated to 0.77
+
 * Mon Sep 18 2006 Adrian Reber <adrian@lisas.de> - 0.76-3
 - Rebuilt
 
