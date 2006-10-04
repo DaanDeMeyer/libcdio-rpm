@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.77
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -108,6 +108,9 @@ fi
 
 
 %changelog
+* Thu Oct 05 2006 Christian Iseli <Christian.Iseli@licr.org> 0.77-2
+ - rebuilt for unwind info generation, broken in gcc-4.1.1-21
+
 * Fri Sep 22 2006 Adrian Reber <adrian@lisas.de> - 0.77-1
 - Updated to 0.77
 
