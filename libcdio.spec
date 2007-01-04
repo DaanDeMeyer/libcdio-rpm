@@ -1,13 +1,13 @@
 Name:           libcdio
-Version:        0.77
-Release:        3%{?dist}
+Version:        0.78.2
+Release:        1%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
 License:        GPL
 URL:            http://www.gnu.org/software/libcdio/
-Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.77.tar.gz
-Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.77.tar.gz.sig
+Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.78.2.tar.gz
+Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.78.2.tar.gz.sig
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 #BuildRequires:  libcddb-devel >= 0.9.4
@@ -109,6 +109,9 @@ fi
 
 
 %changelog
+* Thu Jan 04 2007 Adrian Reber <adrian@lisas.de> - 0.78.2-1
+- updated to 0.78.2 (#221359)
+
 * Thu Oct 05 2006 Adrian Reber <adrian@lisas.de> - 0.77-3
 - disabled iso9660 test case (fails for some reason with date problems)
   this seems to be a known problem according to the ChangeLog
