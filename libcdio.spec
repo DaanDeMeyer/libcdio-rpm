@@ -66,8 +66,7 @@ cp -a example/C++/{*.cpp,README} examples/C++
 
 %check || :
 # disable test using local CDROM
-%{__sed} -i -e  "s/am__EXEEXT_1 =.*$/am__EXEEXT_1 =/g" \
-            -e  "s,testiso9660\$(EXEEXT) \\\,\\\,g" test/Makefile
+%{__sed} -i -e  "s,testiso9660\$(EXEEXT),,g" test/Makefile
 make check
 
 
