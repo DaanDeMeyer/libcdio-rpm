@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.78.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -109,6 +109,9 @@ fi
 
 
 %changelog
+* Mon Jul 23 2007 Adrian Reber <adrian@lisas.de> - 0.78.2-2
+- updated to 0.78.2 (#221359) (this time for real)
+
 * Thu Jan 04 2007 Adrian Reber <adrian@lisas.de> - 0.78.2-1
 - updated to 0.78.2 (#221359)
 
