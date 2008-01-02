@@ -1,14 +1,16 @@
 Name:           libcdio
-Version:        0.78.2
-Release:        3%{?dist}
+Version:        0.79
+Release:        1%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://www.gnu.org/software/libcdio/
-Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.78.2.tar.gz
-Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.78.2.tar.gz.sig
+Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.79.tar.gz
+Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.79.tar.gz.sig
+Source2:        libcdio-no_date_footer.hml
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch:          libcdio-info-buffer.patch
 
 #BuildRequires:  libcddb-devel >= 0.9.4
 BuildRequires:  pkgconfig doxygen
@@ -34,6 +36,7 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
+%patch -p3
 f=src/cd-paranoia/doc/jp/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
@@ -46,6 +49,8 @@ iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 	--disable-rpath
 make %{?_smp_mflags}
 cd doc/doxygen
+sed -i -e "s,HTML_FOOTER.*$,HTML_FOOTER = libcdio-no_date_footer.hml,g" Doxyfile
+cp %{SOURCE2} .
 ./run_doxygen
 
 
@@ -108,6 +113,11 @@ fi
 
 
 %changelog
+* Wed Jan 02 2008 Adrian Reber <adrian@lisas.de> - 0.79-1
+- updated to 0.79
+- fixes #427197 (Long Joliet file name overflows cdio's buffer)
+- fixes #341981 (multiarch conflicts in libcdio)
+
 * Fri Aug 24 2007 Adrian Reber <adrian@lisas.de> - 0.78.2-3
 - rebuilt
 
