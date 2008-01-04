@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.79
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -37,7 +37,7 @@ This package contains header files and static libraries for %{name}.
 %prep
 %setup -q
 %patch -p3
-f=src/cd-paranoia/doc/jp/cd-paranoia.1.in
+f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
 
@@ -113,6 +113,9 @@ fi
 
 
 %changelog
+* Fri Jan 04 2008 Adrian Reber <adrian@lisas.de> - 0.79-2
+- fixed security fix (was off by two)
+
 * Wed Jan 02 2008 Adrian Reber <adrian@lisas.de> - 0.79-1
 - updated to 0.79
 - fixes #427197 (Long Joliet file name overflows cdio's buffer)
