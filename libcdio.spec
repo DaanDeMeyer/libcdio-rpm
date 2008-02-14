@@ -1,6 +1,6 @@
 Name:           libcdio
 Version:        0.79
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CD-ROM input and control library
 
 Group:          Applications/Multimedia
@@ -10,9 +10,8 @@ Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.79.tar.gz
 Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.79.tar.gz.sig
 Source2:        libcdio-no_date_footer.hml
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Patch:          libcdio-info-buffer.patch
-
-#BuildRequires:  libcddb-devel >= 0.9.4
+Patch0:         libcdio-info-buffer.patch
+Patch1:         libcdio-0.79-gcc43.patch
 BuildRequires:  pkgconfig doxygen
 BuildRequires:  ncurses-devel
 Requires(post): /sbin/ldconfig
@@ -36,7 +35,8 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
-%patch -p3
+%patch0 -p3
+%patch1 -p1
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
@@ -113,6 +113,9 @@ fi
 
 
 %changelog
+* Thu Feb 14 2008 Adrian Reber <adrian@lisas.de> - 0.79-3
+- added patch to compile with gcc43
+
 * Fri Jan 04 2008 Adrian Reber <adrian@lisas.de> - 0.79-2
 - fixed security fix (was off by two)
 
