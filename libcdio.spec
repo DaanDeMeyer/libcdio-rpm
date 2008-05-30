@@ -1,19 +1,16 @@
-Name:           libcdio
-Version:        0.79
-Release:        3%{?dist}
-Summary:        CD-ROM input and control library
-
-Group:          Applications/Multimedia
-License:        GPLv2+
-URL:            http://www.gnu.org/software/libcdio/
-Source0:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.79.tar.gz
-Source1:        http://ftp.gnu.org/gnu/libcdio/libcdio-0.79.tar.gz.sig
-Source2:        libcdio-no_date_footer.hml
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Patch0:         libcdio-info-buffer.patch
-Patch1:         libcdio-0.79-gcc43.patch
-BuildRequires:  pkgconfig doxygen
-BuildRequires:  ncurses-devel
+Name: libcdio
+Version: 0.80
+Release: 1%{?dist}
+Summary: CD-ROM input and control library
+Group: System Environment/Libraries
+License: GPLv2+
+URL: http://www.gnu.org/software/libcdio/
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.80.tar.gz
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.80.tar.gz.sig
+Source2: libcdio-no_date_footer.hml
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: pkgconfig doxygen
+BuildRequires: ncurses-devel
 Requires(post): /sbin/ldconfig
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -35,8 +32,6 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
-%patch0 -p3
-%patch1 -p1
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
@@ -71,7 +66,9 @@ cp -a example/C++/{*.cpp,README} examples/C++
 
 %check || :
 # disable test using local CDROM
-%{__sed} -i -e  "s,testiso9660\$(EXEEXT),,g" test/Makefile
+%{__sed} -i -e  "s,testiso9660\$(EXEEXT),,g" \
+            -e "s,check_paranoia.sh check_opts.sh, check_opts.sh,g" \
+            test/Makefile
 make check
 
 
@@ -113,6 +110,11 @@ fi
 
 
 %changelog
+* Thu May 29 2008 Adrian Reber <adrian@lisas.de> - 0.80-1
+- updated to 0.80
+- removed upstreamed patches
+- last GPLv2+ release
+
 * Thu Feb 14 2008 Adrian Reber <adrian@lisas.de> - 0.79-3
 - added patch to compile with gcc43
 
