@@ -64,7 +64,7 @@ cp -a example/{*.c,README} examples
 cp -a example/C++/{*.cpp,README} examples/C++
 
 
-%check || :
+%check
 # disable test using local CDROM
 %{__sed} -i -e  "s,testiso9660\$(EXEEXT),,g" \
             -e "s,check_paranoia.sh check_opts.sh, check_opts.sh,g" \
