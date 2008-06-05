@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv2+
@@ -14,6 +14,11 @@ BuildRequires: ncurses-devel
 Requires(post): /sbin/ldconfig
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
+
+# The patch touches Makefile.am files:
+BuildRequires: automake autoconf
+Patch1: libcdio-0.80-paranoia-fix.patch
+
 
 %description
 This library provides an interface for CD-ROM access. It can be used
@@ -32,11 +37,14 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
+%patch1 -p1 -b .paranoia_pc
+
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
 
 %build
+automake  || :
 %configure \
 	--disable-vcd-info \
 	--disable-dependency-tracking \
@@ -110,6 +118,9 @@ fi
 
 
 %changelog
+* Wed Jun  4 2008 Tomas Bzatek <tbzatek@redhat.com> - 0.80-2
+- added patch enabling libcdio_paranoia.pc
+
 * Thu May 29 2008 Adrian Reber <adrian@lisas.de> - 0.80-1
 - updated to 0.80
 - removed upstreamed patches
