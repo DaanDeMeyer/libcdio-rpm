@@ -11,12 +11,15 @@ Source2: libcdio-no_date_footer.hml
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
+BuildRequires: help2man
 Requires(post): /sbin/ldconfig
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
 # The patch touches Makefile.am files:
 BuildRequires: automake autoconf
+BuildRequires: libtool
+BuildRequires: gettext-devel
 Patch1: libcdio-0.80-paranoia-fix.patch
 
 
@@ -44,7 +47,11 @@ iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
 
 %build
+libtoolize --force  || :
+aclocal  || :
+autoheader  || :
 automake  || :
+autoconf  || :
 %configure \
 	--disable-vcd-info \
 	--disable-dependency-tracking \
