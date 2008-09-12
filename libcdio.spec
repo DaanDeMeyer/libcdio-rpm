@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.80
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv2+
@@ -58,11 +58,14 @@ autoconf  || :
 	--disable-cddb \
 	--disable-rpath
 make %{?_smp_mflags}
+# fix timestamps of generated man-pages
+for i in iso-read iso-info cd-read cd-drive; do 
+	touch -r src/$i.help2man src/$i.1
+done
 cd doc/doxygen
 sed -i -e "s,HTML_FOOTER.*$,HTML_FOOTER = libcdio-no_date_footer.hml,g" Doxyfile
 cp %{SOURCE2} .
 ./run_doxygen
-
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -125,6 +128,9 @@ fi
 
 
 %changelog
+* Fri Sep 12 2008 Adrian Reber <adrian@lisas.de> - 0.80-3
+- fixed #462125 (Multilib conflict)
+
 * Wed Jun  4 2008 Tomas Bzatek <tbzatek@redhat.com> - 0.80-2
 - added patch enabling libcdio_paranoia.pc
 
