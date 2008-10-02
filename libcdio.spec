@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.80
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv2+
@@ -58,10 +58,6 @@ autoconf  || :
 	--disable-cddb \
 	--disable-rpath
 make %{?_smp_mflags}
-# fix timestamps of generated man-pages
-for i in iso-read iso-info cd-read cd-drive; do 
-	touch -r src/$i.help2man src/$i.1
-done
 cd doc/doxygen
 sed -i -e "s,HTML_FOOTER.*$,HTML_FOOTER = libcdio-no_date_footer.hml,g" Doxyfile
 cp %{SOURCE2} .
@@ -81,6 +77,10 @@ mkdir -p examples/C++
 cp -a example/{*.c,README} examples
 cp -a example/C++/{*.cpp,README} examples/C++
 
+# fix timestamps of generated man-pages
+for i in iso-read iso-info cd-read cd-drive; do 
+	touch -r src/$i.help2man $RPM_BUILD_ROOT%{_mandir}/man1/$i.1
+done
 
 %check
 # disable test using local CDROM
@@ -128,6 +128,9 @@ fi
 
 
 %changelog
+* Thu Oct 02 2008 Adrian Reber <adrian@lisas.de> - 0.80-4
+- fixed #462125 (Multilib conflict) - this time for real
+
 * Fri Sep 12 2008 Adrian Reber <adrian@lisas.de> - 0.80-3
 - fixed #462125 (Multilib conflict)
 
