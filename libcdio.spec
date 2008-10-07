@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.80
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv2+
@@ -78,7 +78,12 @@ cp -a example/{*.c,README} examples
 cp -a example/C++/{*.cpp,README} examples/C++
 
 # fix timestamps of generated man-pages
-for i in iso-read iso-info cd-read cd-drive; do 
+for i in cd-info iso-read iso-info cd-read cd-drive; do 
+	# remove build architecture information from man pages
+	sed -i -e 's, version.*linux-gnu,,g' $RPM_BUILD_ROOT%{_mandir}/man1/$i.1
+	# remove libtool leftover from man pages
+	sed -i -e 's,lt-,,g;s,LT-,,g' $RPM_BUILD_ROOT%{_mandir}/man1/$i.1
+	# fix timestamps to be the same in all packages
 	touch -r src/$i.help2man $RPM_BUILD_ROOT%{_mandir}/man1/$i.1
 done
 
@@ -128,6 +133,10 @@ fi
 
 
 %changelog
+* Tue Oct 07 2008 Adrian Reber <adrian@lisas.de> - 0.80-5
+- fixed #462125 (Multilib conflict) - really, really, really
+  (also remove architecture information from man pages)
+
 * Thu Oct 02 2008 Adrian Reber <adrian@lisas.de> - 0.80-4
 - fixed #462125 (Multilib conflict) - this time for real
 
