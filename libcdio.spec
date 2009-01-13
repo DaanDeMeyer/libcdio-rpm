@@ -1,13 +1,14 @@
 Name: libcdio
-Version: 0.80
-Release: 5%{?dist}
+Version: 0.81
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
-License: GPLv2+
+License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.80.tar.gz
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.80.tar.gz.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.81.tar.gz
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.81.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
+Patch0: libcdio-0.81-cdio_get_default_device_linux.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
@@ -15,12 +16,7 @@ BuildRequires: help2man
 Requires(post): /sbin/ldconfig
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
-
-# The patch touches Makefile.am files:
-BuildRequires: automake autoconf
-BuildRequires: libtool
 BuildRequires: gettext-devel
-Patch1: libcdio-0.80-paranoia-fix.patch
 
 
 %description
@@ -40,24 +36,23 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
-%patch1 -p1 -b .paranoia_pc
+%patch0 -p1
 
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 
 
 %build
-libtoolize --force  || :
-aclocal  || :
-autoheader  || :
-automake  || :
-autoconf  || :
 %configure \
 	--disable-vcd-info \
 	--disable-dependency-tracking \
 	--disable-cddb \
 	--disable-rpath
 make %{?_smp_mflags}
+
+# another multilib fix; remove the architecture information from version.h
+sed -i -e "s,%{version}.*$,%{version}\\\",g" include/cdio/version.h
+
 cd doc/doxygen
 sed -i -e "s,HTML_FOOTER.*$,HTML_FOOTER = libcdio-no_date_footer.hml,g" Doxyfile
 cp %{SOURCE2} .
@@ -89,7 +84,8 @@ done
 
 %check
 # disable test using local CDROM
-%{__sed} -i -e  "s,testiso9660\$(EXEEXT),,g" \
+%{__sed} -i -e "s,testiso9660\$(EXEEXT),,g" \
+	    -e "s,testisocd\$(EXEEXT),,g" \
             -e "s,check_paranoia.sh check_opts.sh, check_opts.sh,g" \
             test/Makefile
 make check
@@ -133,6 +129,12 @@ fi
 
 
 %changelog
+* Tue Oct 07 2008 Adrian Reber <adrian@lisas.de> - 0.81-1
+- updated to 0.81
+- license changed to GPLv3+
+- fixed #477288 (libcdio-devel multilib conflict)
+- applied patch to fix endless loop in mock
+
 * Tue Oct 07 2008 Adrian Reber <adrian@lisas.de> - 0.80-5
 - fixed #462125 (Multilib conflict) - really, really, really
   (also remove architecture information from man pages)
