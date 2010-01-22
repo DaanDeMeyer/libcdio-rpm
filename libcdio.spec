@@ -1,14 +1,13 @@
 Name: libcdio
-Version: 0.81
-Release: 3%{?dist}
+Version: 0.82
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.81.tar.gz
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.81.tar.gz.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.82.tar.gz
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.82.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
-Patch0: libcdio-0.81-cdio_get_default_device_linux.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
@@ -17,6 +16,7 @@ Requires(post): /sbin/ldconfig
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 BuildRequires: gettext-devel
+BuildRequires: chrpath
 
 
 %description
@@ -36,11 +36,10 @@ This package contains header files and static libraries for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
-
+iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 
 %build
 %configure \
@@ -81,6 +80,10 @@ for i in cd-info iso-read iso-info cd-read cd-drive; do
 	# fix timestamps to be the same in all packages
 	touch -r src/$i.help2man $RPM_BUILD_ROOT%{_mandir}/man1/$i.1
 done
+
+# remove rpath
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/*
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 
 %check
 # disable test using local CDROM
@@ -129,6 +132,11 @@ fi
 
 
 %changelog
+* Wed Jan 20 2010 Roman Rakus rrakus@redhat.com 0.82-1
+- Update to 0.82
+- removed rpath
+- converted THANKS to utf8 
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.81-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
