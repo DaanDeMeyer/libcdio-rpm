@@ -24,12 +24,12 @@ This library provides an interface for CD-ROM access. It can be used
 by applications that need OS- and device-independent access to CD-ROM
 devices.
 
-%package        devel
-Summary:        Header files and libraries for %{name}
-Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
+%package devel
+Summary: Header files and libraries for %{name}
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
 
-%description    devel
+%description devel
 This package contains header files and libraries for %{name}.
 
 
@@ -89,8 +89,8 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 # disable test using local CDROM
 %{__sed} -i -e "s,testiso9660\$(EXEEXT),,g" \
 	    -e "s,testisocd\$(EXEEXT),,g" \
-            -e "s,check_paranoia.sh check_opts.sh, check_opts.sh,g" \
-            test/Makefile
+	    -e "s,check_paranoia.sh check_opts.sh, check_opts.sh,g" \
+	    test/Makefile
 make check
 
 
