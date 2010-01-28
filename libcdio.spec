@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.82
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -25,13 +25,12 @@ by applications that need OS- and device-independent access to CD-ROM
 devices.
 
 %package        devel
-Summary:        Header files and static libraries for %{name}
+Summary:        Header files and libraries for %{name}
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
-Requires:       pkgconfig
 
 %description    devel
-This package contains header files and static libraries for %{name}.
+This package contains header files and libraries for %{name}.
 
 
 %prep
@@ -46,6 +45,7 @@ iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 	--disable-vcd-info \
 	--disable-dependency-tracking \
 	--disable-cddb \
+	--disable-static \
 	--disable-rpath
 make %{?_smp_mflags}
 
@@ -126,12 +126,15 @@ fi
 %doc doc/doxygen/html examples
 %{_includedir}/cdio
 %{_includedir}/cdio++
-%{_libdir}/*.a
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
 
 %changelog
+* Thu Jan 28 2010 Adrian Reber <adrian@lisas.de> - 0.82-2
+- disabled building of static libraries (#556064)
+- removed "Requires: pkgconfig" (rpm adds it automatically)
+
 * Wed Jan 20 2010 Roman Rakus rrakus@redhat.com 0.82-1
 - Update to 0.82
 - removed rpath
