@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.82
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -131,6 +131,9 @@ fi
 
 
 %changelog
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.82-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Thu Jan 28 2010 Adrian Reber <adrian@lisas.de> - 0.82-2
 - disabled building of static libraries (#556064)
 - removed "Requires: pkgconfig" (rpm adds it automatically)
