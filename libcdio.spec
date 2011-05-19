@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.82
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -9,6 +9,7 @@ Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.82.tar.gz
 Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.82.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch1: libcdio-0.82-sprintf.patch
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
 BuildRequires: help2man
@@ -35,6 +36,7 @@ This package contains header files and libraries for %{name}.
 
 %prep
 %setup -q
+%patch1 -p1 -b .sprintf
 
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
@@ -131,6 +133,9 @@ fi
 
 
 %changelog
+* Thu May 19 2011 Honza Horak <hhorak@redhat.com> - 0.82-4
+- fixed #705673 buffer overflow and other unprotected sprintf calls
+
 * Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.82-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
