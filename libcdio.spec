@@ -1,12 +1,12 @@
 Name: libcdio
-Version: 0.82
-Release: 5%{?dist}
+Version: 0.83
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.82.tar.gz
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.82.tar.gz.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.gz
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Patch1: libcdio-0.82-sprintf.patch
@@ -135,6 +135,9 @@ fi
 
 
 %changelog
+* Sun Nov 13 2011 Adrian Reber <adrian@lisas.de> - 0.83-1
+- updated to 0.83
+
 * Mon May 30 2011 Honza Horak <hhorak@redhat.com> - 0.82-5
 - applied patch to fix issues found by static analyses
 
