@@ -9,7 +9,6 @@ Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2
 Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2.sig
 Source2: libcdio-no_date_footer.hml
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Patch1: libcdio-0.82-staticanal.patch
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
 BuildRequires: help2man
@@ -36,7 +35,6 @@ This package contains header files and libraries for %{name}.
 
 %prep
 %setup -q
-%patch1 -p1 -b .staticanal
 
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
