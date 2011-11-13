@@ -5,8 +5,8 @@ Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.gz
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.gz.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2.sig
 Source2: libcdio-no_date_footer.hml
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Patch1: libcdio-0.82-sprintf.patch
