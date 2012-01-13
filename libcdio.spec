@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.83
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -131,6 +131,9 @@ fi
 
 
 %changelog
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.83-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Sun Nov 13 2011 Adrian Reber <adrian@lisas.de> - 0.83-1
 - updated to 0.83
 
