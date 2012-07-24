@@ -148,6 +148,9 @@ fi
 * Tue Jul 24 2012 Adrian Reber <adrian@lisas.de> - 0.83-5
 - fixed #477288 (libcdio-devel multilib conflict) again
 
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.83-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Fri Mar 23 2012 Adrian Reber <adrian@lisas.de> - 0.83-3
 - fixed #804484 (/usr/bin/cd-info was killed by signal 11)
 
