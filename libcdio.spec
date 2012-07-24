@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.83
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -8,6 +8,7 @@ URL: http://www.gnu.org/software/libcdio/
 Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2
 Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2.sig
 Source2: libcdio-no_date_footer.hml
+Source3: cdio_config.h
 Patch0: libcdio-fix-for-more-than-99-tracks.diff
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
@@ -55,13 +56,24 @@ make %{?_smp_mflags}
 sed -i -e "s,%{version}.*$,%{version}\\\",g" include/cdio/version.h
 
 cd doc/doxygen
-sed -i -e "s,HTML_FOOTER.*$,HTML_FOOTER = libcdio-no_date_footer.hml,g" Doxyfile
+sed -i -e "s,HTML_FOOTER.*$,HTML_FOOTER = libcdio-no_date_footer.hml,g; \
+		s,EXCLUDE .*$,EXCLUDE = ../../include/cdio/cdio_config.h,g;" Doxyfile
 cp %{SOURCE2} .
 ./run_doxygen
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
+
+# multilib header hack; taken from postgresql.spec
+case `uname -i` in
+	i386 | x86_64 | ppc | ppc64 | s390 | s390x | sparc | sparc64 )
+		mv $RPM_BUILD_ROOT%{_includedir}/cdio/cdio_config.h $RPM_BUILD_ROOT%{_includedir}/cdio/cdio_config_`uname -i`.h
+		install -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_includedir}/cdio
+		;;
+	*)
+		;;
+esac
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
@@ -133,6 +145,9 @@ fi
 
 
 %changelog
+* Tue Jul 24 2012 Adrian Reber <adrian@lisas.de> - 0.83-5
+- fixed #477288 (libcdio-devel multilib conflict) again
+
 * Fri Mar 23 2012 Adrian Reber <adrian@lisas.de> - 0.83-3
 - fixed #804484 (/usr/bin/cd-info was killed by signal 11)
 
