@@ -1,15 +1,14 @@
 Name: libcdio
-Version: 0.83
-Release: 5%{?dist}
+Version: 0.90
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.83.tar.bz2.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.90.tar.gz
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.90.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
-Patch0: libcdio-fix-for-more-than-99-tracks.diff
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
@@ -37,7 +36,6 @@ This package contains header files and libraries for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1
 
 f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
 iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
@@ -77,8 +75,6 @@ esac
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
-
-mv $RPM_BUILD_ROOT%{_mandir}/{jp,ja}
 
 rm -rf examples
 mkdir -p examples/C++
@@ -132,7 +128,6 @@ fi
 %{_libdir}/*.so.*
 %{_infodir}/*
 %{_mandir}/man1/*
-%lang(ja) %{_mandir}/ja/man1/*
 
 
 %files devel
@@ -145,6 +140,9 @@ fi
 
 
 %changelog
+* Thu Nov 22 2012 Adrian Reber <adrian@lisas.de> - 0.90-1
+- updated to 0.90
+
 * Tue Jul 24 2012 Adrian Reber <adrian@lisas.de> - 0.83-5
 - fixed #477288 (libcdio-devel multilib conflict) again
 
