@@ -1,12 +1,12 @@
 Name: libcdio
-Version: 0.90
-Release: 3%{?dist}
+Version: 0.92
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.90.tar.gz
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.90.tar.gz.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.92.tar.gz
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.92.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -140,6 +140,9 @@ fi
 
 
 %changelog
+* Mon Dec 16 2013 Adrian Reber <adrian@lisas.de> - 0.92-1
+- updated to 0.92
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.90-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
