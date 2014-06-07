@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.92
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -140,6 +140,9 @@ fi
 
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.92-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon Dec 16 2013 Adrian Reber <adrian@lisas.de> - 0.92-1
 - updated to 0.92
 
