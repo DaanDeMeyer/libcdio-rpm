@@ -37,8 +37,6 @@ This package contains header files and libraries for %{name}.
 %prep
 %setup -q
 
-f=src/cd-paranoia/doc/ja/cd-paranoia.1.in
-iconv -f euc-jp -t utf-8 -o $f.utf8 $f && mv $f.utf8 $f
 iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 
 %build
