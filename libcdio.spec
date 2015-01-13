@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.93
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -9,6 +9,8 @@ Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.93.tar.gz
 Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.93.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
+# https://savannah.gnu.org/bugs/index.php?43995
+Patch0: libcdio-0.93-udf-bigendian.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
@@ -36,6 +38,7 @@ This package contains header files and libraries for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1 -b .udf-bigendian
 
 iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 
@@ -138,6 +141,9 @@ fi
 
 
 %changelog
+* Tue Jan 13 2015 Dan Horák <dan[at]danny.cz> - 0.93-2
+- add big endian fix for udf
+
 * Fri Oct 31 2014 Frantisek Kluknavsky <fkluknav@redhat.com> - 0.93-1
 - rebase to 0.93
 
