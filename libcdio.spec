@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.93
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -141,6 +141,10 @@ fi
 
 
 %changelog
+* Sat Feb 21 2015 Till Maas <opensource@till.name> - 0.93-3
+- Rebuilt for Fedora 23 Change
+  https://fedoraproject.org/wiki/Changes/Harden_all_packages_with_position-independent_code
+
 * Tue Jan 13 2015 Dan Horák <dan[at]danny.cz> - 0.93-2
 - add big endian fix for udf
 
