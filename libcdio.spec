@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.93
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -20,6 +20,11 @@ Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 BuildRequires: gettext-devel
 BuildRequires: chrpath
+
+%if 0%{?fedora} >= 23
+# ABI compatibility package dropped in F23
+Obsoletes: compat-libcdio15 < 0.93
+%endif
 
 
 %description
@@ -141,6 +146,9 @@ fi
 
 
 %changelog
+* Fri May 22 2015 Kalev Lember <kalevlember@gmail.com> - 0.93-5
+- Obsolete compat-libcdio15
+
 * Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 0.93-4
 - Rebuilt for GCC 5 C++11 ABI change
 
