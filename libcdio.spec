@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.93
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.93-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Fri May 22 2015 Kalev Lember <kalevlember@gmail.com> - 0.93-5
 - Obsolete compat-libcdio15
 
