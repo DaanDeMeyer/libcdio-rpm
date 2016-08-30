@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.93
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -11,6 +11,7 @@ Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
 # https://savannah.gnu.org/bugs/index.php?43995
 Patch0: libcdio-0.93-udf-bigendian.patch
+Patch1: http://git.savannah.gnu.org/gitweb/?p=libcdio.git;a=commitdiff_plain;h=47f3fbf3eb0ca1ae1294744e8824d023f32ec756
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
@@ -44,6 +45,7 @@ This package contains header files and libraries for %{name}.
 %prep
 %setup -q
 %patch0 -p1 -b .udf-bigendian
+%patch1 -p1
 
 iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 
@@ -88,7 +90,7 @@ cp -a example/{*.c,README} examples
 cp -a example/C++/{*.cpp,README} examples/C++
 
 # fix timestamps of generated man-pages
-for i in cd-info iso-read iso-info cd-read cd-drive; do 
+for i in cd-info iso-read iso-info cd-read cd-drive; do
 	# remove build architecture information from man pages
 	sed -i -e 's, version.*linux-gnu,,g' $RPM_BUILD_ROOT%{_mandir}/man1/$i.1
 	# remove libtool leftover from man pages
@@ -146,6 +148,9 @@ fi
 
 
 %changelog
+* Tue Aug 30 2016 Adrian Reber <adrian@lisas.de> - 0.93-8
+- Fixes #1366718 (Bug in libcdio preventing it from use in c++ applications)
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
