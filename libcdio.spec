@@ -1,18 +1,14 @@
 Name: libcdio
-Version: 0.93
-Release: 8%{?dist}
+Version: 0.94
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-0.93.tar.gz
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-0.93.tar.gz.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.gz
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
-# https://savannah.gnu.org/bugs/index.php?43995
-Patch0: libcdio-0.93-udf-bigendian.patch
-Patch1: http://git.savannah.gnu.org/gitweb/?p=libcdio.git;a=commitdiff_plain;h=47f3fbf3eb0ca1ae1294744e8824d023f32ec756
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
 BuildRequires: help2man
@@ -44,8 +40,6 @@ This package contains header files and libraries for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .udf-bigendian
-%patch1 -p1
 
 iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 
@@ -68,7 +62,6 @@ cp %{SOURCE2} .
 ./run_doxygen
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 # multilib header hack; taken from postgresql.spec
@@ -112,10 +105,6 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 make check
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
 %post
 /sbin/ldconfig
 /sbin/install-info %{_infodir}/%{name}.info %{_infodir}/dir 2>/dev/null || :
@@ -131,7 +120,8 @@ fi
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING NEWS README README.libcdio THANKS TODO
+%license COPYING
+%doc AUTHORS NEWS README README.libcdio THANKS TODO
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_infodir}/*
@@ -148,6 +138,10 @@ fi
 
 
 %changelog
+* Mon Nov 14 2016 Adrian Reber <adrian@lisas.de> - 0.94-1
+- updated to 0.94
+- dropped patches
+
 * Tue Aug 30 2016 Adrian Reber <adrian@lisas.de> - 0.93-8
 - Fixes #1366718 (Bug in libcdio preventing it from use in c++ applications)
 
