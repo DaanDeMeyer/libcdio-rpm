@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 0.94
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -138,6 +138,9 @@ fi
 
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.94-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Mon Nov 14 2016 Adrian Reber <adrian@lisas.de> - 0.94-1
 - updated to 0.94
 - dropped patches
