@@ -1,6 +1,6 @@
 Name: libcdio
-Version: 0.94
-Release: 4%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 Group: System Environment/Libraries
 License: GPLv3+
@@ -53,7 +53,7 @@ iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 make %{?_smp_mflags}
 
 # another multilib fix; remove the architecture information from version.h
-sed -i -e "s,%{version}.*$,%{version}\\\",g" include/cdio/version.h
+sed -i -e "s,%{version} .*$,%{version}\\\",g" include/cdio/version.h
 
 cd doc/doxygen
 sed -i -e "s,HTML_FOOTER.*$,HTML_FOOTER = libcdio-no_date_footer.hml,g; \
@@ -138,6 +138,9 @@ fi
 
 
 %changelog
+* Thu Jan 25 2018 Adrian Reber <adrian@lisas.de> - 2.0.0-1
+- updated to 2.0.0
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.94-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
