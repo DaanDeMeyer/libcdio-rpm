@@ -9,6 +9,7 @@ Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.gz.sig
 Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
+BuildRequires:  gcc
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
 BuildRequires: help2man
