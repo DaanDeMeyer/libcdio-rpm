@@ -120,7 +120,6 @@ fi
 
 
 %files
-%defattr(-,root,root,-)
 %license COPYING
 %doc AUTHORS NEWS README README.libcdio THANKS TODO
 %{_bindir}/*
@@ -130,7 +129,6 @@ fi
 
 
 %files devel
-%defattr(-,root,root,-)
 %doc doc/doxygen/html examples
 %{_includedir}/cdio
 %{_includedir}/cdio++
