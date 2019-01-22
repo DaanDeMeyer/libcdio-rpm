@@ -13,9 +13,6 @@ BuildRequires: gcc gcc-c++
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
 BuildRequires: help2man
-Requires(post): /sbin/ldconfig
-Requires(post): /sbin/install-info
-Requires(preun): /sbin/install-info
 BuildRequires: gettext-devel
 BuildRequires: chrpath
 
@@ -104,19 +101,6 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 	    -e "s,check_paranoia.sh check_opts.sh, check_opts.sh,g" \
 	    test/Makefile
 make check
-
-
-%post
-/sbin/ldconfig
-/sbin/install-info %{_infodir}/%{name}.info %{_infodir}/dir 2>/dev/null || :
-
-%preun
-if [ $1 = 0 ]; then
-	/sbin/install-info --delete %{_infodir}/%{name}.info \
-		%{_infodir}/dir 2>/dev/null || :
-fi
-
-%postun -p /sbin/ldconfig
 
 
 %files
