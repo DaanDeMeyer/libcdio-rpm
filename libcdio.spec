@@ -2,7 +2,6 @@ Name: libcdio
 Version: 2.0.0
 Release: 3%{?dist}
 Summary: CD-ROM input and control library
-Group: System Environment/Libraries
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
 Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.gz
@@ -29,7 +28,6 @@ devices.
 
 %package devel
 Summary: Header files and libraries for %{name}
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
 %description devel
