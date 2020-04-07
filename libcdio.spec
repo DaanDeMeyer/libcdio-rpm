@@ -1,11 +1,11 @@
 Name: libcdio
-Version: 2.0.0
-Release: 6%{?dist}
+Version: 2.1.0
+Release: 1%{?dist}
 Summary: CD-ROM input and control library
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
-Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.gz
-Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.gz.sig
+Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.bz2
+Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.bz2.sig
 Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
 BuildRequires: gcc gcc-c++
@@ -14,12 +14,6 @@ BuildRequires: ncurses-devel
 BuildRequires: help2man
 BuildRequires: gettext-devel
 BuildRequires: chrpath
-
-%if 0%{?fedora} >= 23
-# ABI compatibility package dropped in F23
-Obsoletes: compat-libcdio15 < 0.93
-%endif
-
 
 %description
 This library provides an interface for CD-ROM access. It can be used
@@ -103,7 +97,7 @@ make check
 
 %files
 %license COPYING
-%doc AUTHORS NEWS README README.libcdio THANKS TODO
+%doc AUTHORS NEWS.md README README.libcdio THANKS TODO
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_infodir}/*
@@ -119,6 +113,9 @@ make check
 
 
 %changelog
+* Mon Mar 30 2020 Adrian Reber <adrian@lisas.de> - 2.1.0-1
+- updated to 2.1.0
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
