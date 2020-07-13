@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 2.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CD-ROM input and control library
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
@@ -40,7 +40,7 @@ iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 	--disable-cddb \
 	--disable-static \
 	--disable-rpath
-make %{?_smp_mflags}
+%make_build
 
 # another multilib fix; remove the architecture information from version.h
 sed -i -e "s,%{version} .*$,%{version}\\\",g" include/cdio/version.h
@@ -52,7 +52,7 @@ cp %{SOURCE2} .
 ./run_doxygen
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 # multilib header hack; taken from postgresql.spec
 case `uname -i` in
@@ -113,6 +113,10 @@ make check
 
 
 %changelog
+* Mon Jul 13 2020 Tom Stellard <tstellar@redhat.com> - 2.1.0-2
+- Use make macros
+- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
+
 * Mon Mar 30 2020 Adrian Reber <adrian@lisas.de> - 2.1.0-1
 - updated to 2.1.0
 
