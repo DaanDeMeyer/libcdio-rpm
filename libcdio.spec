@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 2.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: CD-ROM input and control library
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
@@ -113,6 +113,9 @@ make check
 
 
 %changelog
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Mon Jul 13 2020 Tom Stellard <tstellar@redhat.com> - 2.1.0-2
 - Use make macros
 - https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
