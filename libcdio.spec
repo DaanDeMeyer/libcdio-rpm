@@ -14,6 +14,7 @@ BuildRequires: ncurses-devel
 BuildRequires: help2man
 BuildRequires: gettext-devel
 BuildRequires: chrpath
+BuildRequires: make
 
 %description
 This library provides an interface for CD-ROM access. It can be used
