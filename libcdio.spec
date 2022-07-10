@@ -8,6 +8,9 @@ Source0: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.bz2
 Source1: http://ftp.gnu.org/gnu/libcdio/libcdio-%{version}.tar.bz2.sig
 Source2: libcdio-no_date_footer.hml
 Source3: cdio_config.h
+# Fixed upstream but not in a stable release yet.
+# http://git.savannah.gnu.org/cgit/libcdio.git/commit/?id=2adb43c60afc6e98e94d86dad9f93d3df52862b1
+Patch: format-security.patch
 BuildRequires: gcc gcc-c++
 BuildRequires: pkgconfig doxygen
 BuildRequires: ncurses-devel
@@ -30,7 +33,7 @@ This package contains header files and libraries for %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 iconv -f ISO88591 -t utf-8 -o THANKS.utf8 THANKS && mv THANKS.utf8 THANKS
 
